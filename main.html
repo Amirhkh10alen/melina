@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>برای ملینا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle at top, #020617, #000);
+            font-family: 'Vazirmatn', sans-serif;
+            direction: rtl;
+            text-align: center;
+            padding: 30px;
+            color: #e5f2ff;
+            overflow-x: hidden;
+            transition: background 1s;
+        }
+
+        body.pulse {
+            background: radial-gradient(circle at top, #0f172a, #020617);
+        }
+
+        h1 {
+            font-size: 2.7em;
+            color: #67e8f9;
+            text-shadow: 0 0 15px rgba(103,232,249,0.4);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #cbd5f5;
+        }
+
+        .quote {
+            font-style: italic;
+            margin: 40px auto;
+            background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(236,72,153,0.08));
+            padding: 25px;
+            border-radius: 18px;
+            width: 85%;
+            box-shadow: 0 0 30px rgba(56,189,248,0.2);
+        }
+
+        button {
+            margin-top: 35px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #67e8f9, #0ea5e9);
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            color: #020617;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 25px rgba(103,232,249,0.6);
+        }
+
+        #magicText {
+            margin-top: 25px;
+            font-size: 1.25em;
+            color: #fbcfe8;
+            min-height: 45px;
+            transition: opacity 0.4s;
+        }
+
+        #secret {
+            margin-top: 35px;
+            font-size: 1.3em;
+            color: #67e8f9;
+            opacity: 0;
+            transition: opacity 1s;
+            text-shadow: 0 0 12px rgba(103,232,249,0.6);
+        }
+
+        .glow {
+            position: fixed;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(103,232,249,0.25), transparent 70%);
+            filter: blur(70px);
+            top: 8%;
+            left: 70%;
+            z-index: -1;
+            opacity: 0.7;
+            transition: opacity 1s;
+        }
+
+        .glow2 {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(236,72,153,0.25), transparent 70%);
+            filter: blur(70px);
+            bottom: 10%;
+            right: 65%;
+            z-index: -1;
+            opacity: 0.6;
+            transition: opacity 1s;
+        }
+
+        audio {
+            margin-top: 25px;
+            filter: drop-shadow(0 0 12px rgba(103,232,249,0.6));
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow"></div>
+    <div class="glow2"></div>
+
+    <h1>سلام ملینا 🌙</h1>
+
+    <div class="quote">
+        نور کم، شب آروم،  
+        و دلی که فقط خودش باشه…  
+        بعضی لحظه‌ها شبیه خوابِ بیداری‌ان.
+    </div>
+
+    <p>
+        اینجا برای وقت‌هایی‌یه که دلت می‌خواد  
+        چند دقیقه از همه‌چی فاصله بگیری…  
+        فقط شب، فقط موزیک، فقط خودت.
+    </p>
+
+    <audio id="bgMusic" controls loop>
+        <source src="https://audio.jukehost.co.uk/fMuILwJk9uV0pVbcLsxruLYPzCwSVU7J" type="audio/mpeg">
+        موزیک قابل پخش نیست.
+    </audio>
+
+    <br>
+
+    <button onclick="showRandomLine()">یه جمله برای این لحظه 🤍</button>
+
+    <div id="magicText"></div>
+
+    <div id="secret">🌷 بعضی چیزها فقط برای دلِ خودت ساخته می‌شن… 🌷</div>
+
+    <script>
+        const lines = [
+            'شب و نور کم، بهترین پناه فکرهای خسته‌ست 🌙',
+            'گاهی فقط باید به دود نور نگاه کرد و هیچی نگفت 🌫️',
+            'دل آروم یعنی: لازم نیست همیشه قوی باشی 🖤',
+            'حتی یه رز آبی هم تو تاریکی قشنگ‌تره 🌹',
+            'صورتیِ ملایم یعنی امیدی که آروم نفس می‌کشه 🌸',
+            'موزیک که پخش می‌شه، فکرها آروم عقب می‌رن 🎧'
+        ];
+
+        let clickCount = 0;
+        const audio = document.getElementById('bgMusic');
+        const body = document.body;
+
+        function showRandomLine() {
+            const random = lines[Math.floor(Math.random() * lines.length)];
+            const box = document.getElementById('magicText');
+            box.style.opacity = 0;
+
+            setTimeout(() => {
+                box.innerText = random;
+                box.style.opacity = 1;
+            }, 250);
+
+            clickCount++;
+            if (clickCount === 3) {
+                document.getElementById('secret').style.opacity = 1;
+            }
+        }
+
+        // سینک نور صفحه با پخش موزیک
+        audio.addEventListener('play', () => {
+            body.classList.add('pulse');
+        });
+
+        audio.addEventListener('pause', () => {
+            body.classList.remove('pulse');
+        });
+    </script>
+
+</body>
+</html>
